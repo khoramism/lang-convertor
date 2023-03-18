@@ -1,0 +1,12 @@
+# requirement packages
+git+https://github.com/huggingface/datasets.git
+git+https://github.com/huggingface/transformers.git
+torchaudio
+librosa
+jiwer
+parsivar
+num2fawords
+fastapi
+uvicorn 
+speechbrain
+python-multipart

@@ -1,21 +1,38 @@
-from celery import Celery
+#from celery import Celery
 from speechbrain.pretrained import EncoderASR
+#from huggingsound import SpeechRecognitionModel
 
-asr_model = EncoderASR.from_hparams(source="speechbrain/asr-wav2vec2-librispeech", savedir="pretrained_models/asr-wav2vec2-librispeech")
+def convert_it(lang:str):
+    if lang == 'fa':
+        pass 
+
+    elif lang == 'sp':
+        asr_model = EncoderASR.from_hparams("Voyager1/asr-wav2vec2-commonvoice-es")
+        return asr_model
+        
+    elif lang == 'en':
+        # EnciderASR can't be used in async/await way
+        asr_model = EncoderASR.from_hparams(source="speechbrain/asr-wav2vec2-librispeech")
+        return asr_model
+    
+
+
+
 
 broker_url = 'amqp://guest:guest@localhost:5672/myvhost'
 
-celery_app = Celery('conversions', backend='redis://localhost',broker=broker_url)
-celery_app.conf.update(
+"""app = Celery('conversions',broker=broker_url)
+app.conf.update(
     #task_serializer='json',
     #accept_content=['json'],  # Ignore other content
     #result_serializer='json',
     timezone='Asia/Tehran',
     enable_utc=True,
 )
-@celery_app.convert
+
+@app.task
 def convert(file_name: str):
     text = asr_model.transcribe_file(file_name)
     return text
-
+"""
 

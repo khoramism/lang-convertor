@@ -1,0 +1,6 @@
+__pycache__/
+env/
+m3hrdadfi/wav2vec2-xlsr-persian-speech-emotion-recognition/
+model_checkpoints/
+wav2vec2_checkpoint/
+pretrained_models/

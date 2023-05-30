@@ -25,8 +25,8 @@ class Wav2Vec2V3:
     def useModel(self, path):
         speech_array, sampling_rate = torchaudio.load(path)
         speech_array = speech_array.squeeze().numpy()
-        batch = librosa.resample(np.asarray(speech_array), sampling_rate,
-                                        self.processor.feature_extractor.sampling_rate)
+        batch = librosa.resample(np.asarray(speech_array), orig_sr=sampling_rate,
+                                        target_sr=self.processor.feature_extractor.sampling_rate)
         features = self.processor(
             batch,
             sampling_rate=self.processor.feature_extractor.sampling_rate,

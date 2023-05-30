@@ -1,10 +1,11 @@
 #from celery import Celery
 from speechbrain.pretrained import EncoderASR
 #from huggingsound import SpeechRecognitionModel
-
+from Wav2Vec2V3 import Wav2Vec2V3
 def convert_it(lang:str):
     if lang == 'fa':
-        pass 
+        asr_model = Wav2Vec2V3()
+        return asr_model
 
     elif lang == 'sp':
         asr_model = EncoderASR.from_hparams("Voyager1/asr-wav2vec2-commonvoice-es")

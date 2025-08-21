@@ -1,37 +1,11 @@
-version: '3'
+version: '3.8'
 services:
-  rabbitmq:
-    container_name: "rabbitmq"
-    image: rabbitmq:3.9-management
-    environment:
-        - RABBITMQ_DEFAULT_USER=guest   
-        - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-        # AMQP protocol port
-        - '5672:5672'
-        # HTTP management UI
-        - '15672:15672'
-  
-
-  redis:
-    container_name: redis
-    hostname: redis
-    image: redis
-    ports:
-      - "6378:6378"
-    depends_on:
-      - rabbitmq
-  
-  redis-commander:
-    container_name: redis-commander
-    hostname: redis-commander
-    image: ghcr.io/joeferner/redis-commander:latest
+  speech-api:
     build: .
-    restart: always
-    environment:
-      - REDIS_HOSTS=local:redis:6379
     ports:
-      - "8081:8081"
-    depends_on:
-      - redis
-
+      - "8010:8010"
+    volumes:
+      - ./files:/app/files
+    environment:
+      - FILE_STORAGE=/app/files
+    restart: unless-stopped
